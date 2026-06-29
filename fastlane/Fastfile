@@ -4,7 +4,7 @@ platform :ios do
   desc "Build and upload a release to TestFlight"
   lane :beta do
     build_app(
-      scheme: "Hike",
+      scheme: "GetFly",
       project: "Hike.xcodeproj",
       export_method: "app-store",
       export_options: "./ExportOptions.plist"

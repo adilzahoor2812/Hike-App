@@ -1,7 +1,7 @@
 /*
  * ESP32 Quadcopter Control Server
  *
- * Companion firmware for the iOS Quadcopter Control app.
+ * Companion firmware for the GetFly iOS app.
  * Exposes a simple HTTP JSON API over Wi-Fi.
  *
  * Required libraries (Arduino IDE / PlatformIO):
@@ -17,7 +17,7 @@
 #include <WebServer.h>
 #include <ArduinoJson.h>
 
-const char* AP_SSID = "Quadcopter-ESP32";
+const char* AP_SSID = "GetFly-ESP32";
 const char* AP_PASSWORD = "12345678";
 
 WebServer server(80);

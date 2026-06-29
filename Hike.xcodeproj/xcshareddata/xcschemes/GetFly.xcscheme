@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DB1452702C52D2AD00D80A8C"
-               BuildableName = "Hike.app"
-               BlueprintName = "Hike"
+               BuildableName = "GetFly.app"
+               BlueprintName = "GetFly"
                ReferencedContainer = "container:Hike.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DB1452702C52D2AD00D80A8C"
-            BuildableName = "Hike.app"
-            BlueprintName = "Hike"
+            BuildableName = "GetFly.app"
+            BlueprintName = "GetFly"
             ReferencedContainer = "container:Hike.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DB1452702C52D2AD00D80A8C"
-            BuildableName = "Hike.app"
-            BlueprintName = "Hike"
+            BuildableName = "GetFly.app"
+            BlueprintName = "GetFly"
             ReferencedContainer = "container:Hike.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

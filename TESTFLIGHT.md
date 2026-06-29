@@ -1,13 +1,13 @@
 # TestFlight Distribution Guide
 
-Use this guide to install **Hike** (ESP32 Quadcopter Controller) on your iPhone via TestFlight.
+Use this guide to install **GetFly** (ESP32 Quadcopter Controller) on your iPhone via TestFlight.
 
 ## Prerequisites
 
 1. **Apple Developer Program** membership (paid account).
 2. **Mac with Xcode** installed (latest stable version recommended).
 3. Access to [App Store Connect](https://appstoreconnect.apple.com) for team `49QJL3FTQK`.
-4. Bundle ID `codebuzz.Hike` registered in the Apple Developer portal and App Store Connect.
+4. Bundle ID `codebuzz.GetFly` registered in the Apple Developer portal and App Store Connect.
 
 ## One-time App Store Connect setup
 
@@ -15,17 +15,17 @@ Use this guide to install **Hike** (ESP32 Quadcopter Controller) on your iPhone 
 2. Go to **Apps** → **+** → **New App**.
 3. Set:
    - **Platform**: iOS
-   - **Name**: Hike (or your preferred display name)
-   - **Bundle ID**: `codebuzz.Hike`
-   - **SKU**: any unique string (e.g. `hike-quadcopter-001`)
+   - **Name**: GetFly
+   - **Bundle ID**: `codebuzz.GetFly`
+   - **SKU**: any unique string (e.g. `getfly-quadcopter-001`)
 4. Under **App Information**, add a short description. No App Store screenshots are required for internal TestFlight testing.
 
 ## Option A — Upload with Xcode (recommended first time)
 
 1. Open `Hike.xcodeproj` on your Mac.
-2. Select the **Hike** target → **Signing & Capabilities**.
+2. Select the **GetFly** target → **Signing & Capabilities**.
    - Team: your team (`49QJL3FTQK`)
-   - Bundle Identifier: `codebuzz.Hike`
+   - Bundle Identifier: `codebuzz.GetFly`
    - Signing: **Automatically manage signing**
 3. Select **Any iOS Device (arm64)** as the run destination (not a simulator).
 4. Menu: **Product → Archive**.
@@ -67,7 +67,7 @@ bundle exec fastlane bump_build
 
 1. Install the **TestFlight** app from the App Store.
 2. Accept the email invite, or open the public TestFlight link.
-3. Tap **Install** for Hike.
+3. Tap **Install** for GetFly.
 
 ## Testing with your ESP32
 

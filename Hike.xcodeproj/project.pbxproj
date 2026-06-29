@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC0010212C70000200A10001 /* CoordinateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0010222C70000200A10001 /* CoordinateConverter.swift */; };
+		DC0010232C70000200A10001 /* OpenStreetMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0010202C70000200A10001 /* OpenStreetMapView.swift */; };
+		DC0010252C70000200A10001 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0010242C70000200A10001 /* LocationManager.swift */; };
 		DC0010012C70000100A10001 /* Coordinate3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0010002C70000100A10001 /* Coordinate3D.swift */; };
 		DC0010032C70000100A10001 /* Waypoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0010022C70000100A10001 /* Waypoint.swift */; };
 		DC0010052C70000100A10001 /* DroneCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0010042C70000100A10001 /* DroneCommand.swift */; };
@@ -23,7 +26,7 @@
 		DB14527C2C52D2AE00D80A8C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB14527B2C52D2AE00D80A8C /* Preview Assets.xcassets */; };
 		DB14527E2C52D2AE00D80A8C /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14527D2C52D2AE00D80A8C /* Persistence.swift */; };
 		DB1452812C52D2AE00D80A8C /* Hike.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB14527F2C52D2AE00D80A8C /* Hike.xcdatamodeld */; };
-		DB14528E2C52D65800D80A8C /* HikeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14528C2C52D65800D80A8C /* HikeApp.swift */; };
+		DB14528E2C52D65800D80A8C /* GetFlyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14528C2C52D65800D80A8C /* GetFlyApp.swift */; };
 		DB14528F2C52D65800D80A8C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14528B2C52D65800D80A8C /* ContentView.swift */; };
 		DB1452912C52D67100D80A8C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1452902C52D67100D80A8C /* CardView.swift */; };
 		DB1452932C52D8DA00D80A8C /* CustomBG.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB1452922C52D8DA00D80A8C /* CustomBG.swift */; };
@@ -37,6 +40,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC0010222C70000200A10001 /* CoordinateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateConverter.swift; sourceTree = "<group>"; };
+		DC0010202C70000200A10001 /* OpenStreetMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenStreetMapView.swift; sourceTree = "<group>"; };
+		DC0010242C70000200A10001 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		DC0010002C70000100A10001 /* Coordinate3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate3D.swift; sourceTree = "<group>"; };
 		DC0010022C70000100A10001 /* Waypoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waypoint.swift; sourceTree = "<group>"; };
 		DC0010042C70000100A10001 /* DroneCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneCommand.swift; sourceTree = "<group>"; };
@@ -49,13 +55,13 @@
 		DC0010122C70000100A10001 /* WaypointMissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointMissionView.swift; sourceTree = "<group>"; };
 		DC0010142C70000100A10001 /* ConnectionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSettingsView.swift; sourceTree = "<group>"; };
 		DC0010162C70000100A10001 /* DroneControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneControlView.swift; sourceTree = "<group>"; };
-		DB1452712C52D2AD00D80A8C /* Hike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hike.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB1452712C52D2AD00D80A8C /* GetFly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetFly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB1452782C52D2AE00D80A8C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB14527B2C52D2AE00D80A8C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB14527D2C52D2AE00D80A8C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		DB1452802C52D2AE00D80A8C /* Hike.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hike.xcdatamodel; sourceTree = "<group>"; };
 		DB14528B2C52D65800D80A8C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		DB14528C2C52D65800D80A8C /* HikeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HikeApp.swift; sourceTree = "<group>"; };
+		DB14528C2C52D65800D80A8C /* GetFlyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFlyApp.swift; sourceTree = "<group>"; };
 		DB1452902C52D67100D80A8C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		DB1452922C52D8DA00D80A8C /* CustomBG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBG.swift; sourceTree = "<group>"; };
 		DB1452952C52DC5A00D80A8C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -89,7 +95,7 @@
 		DB1452722C52D2AD00D80A8C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DB1452712C52D2AD00D80A8C /* Hike.app */,
+				DB1452712C52D2AD00D80A8C /* GetFly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -110,6 +116,7 @@
 			children = (
 				DC0010082C70000100A10001 /* DroneConnectionSettings.swift */,
 				DC00100A2C70000100A10001 /* ESP32Client.swift */,
+				DC0010242C70000200A10001 /* LocationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -164,9 +171,10 @@
 			isa = PBXGroup;
 			children = (
 				DB14528B2C52D65800D80A8C /* ContentView.swift */,
-				DB14528C2C52D65800D80A8C /* HikeApp.swift */,
+				DB14528C2C52D65800D80A8C /* GetFlyApp.swift */,
 				DC0010162C70000100A10001 /* DroneControlView.swift */,
 				DC00100E2C70000100A10001 /* FlightMapView.swift */,
+				DC0010202C70000200A10001 /* OpenStreetMapView.swift */,
 				DC0010102C70000100A10001 /* CoordinateInputView.swift */,
 				DC0010122C70000100A10001 /* WaypointMissionView.swift */,
 				DC0010142C70000100A10001 /* ConnectionSettingsView.swift */,
@@ -180,6 +188,7 @@
 			children = (
 				DB1452952C52DC5A00D80A8C /* ColorExtension.swift */,
 				DBA0110A2C53E9DC003623A0 /* GradientButtonStyle.swift */,
+				DC0010222C70000200A10001 /* CoordinateConverter.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -187,9 +196,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DB1452702C52D2AD00D80A8C /* Hike */ = {
+		DB1452702C52D2AD00D80A8C /* GetFly */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DB1452842C52D2AE00D80A8C /* Build configuration list for PBXNativeTarget "Hike" */;
+			buildConfigurationList = DB1452842C52D2AE00D80A8C /* Build configuration list for PBXNativeTarget "GetFly" */;
 			buildPhases = (
 				DB14526D2C52D2AD00D80A8C /* Sources */,
 				DB14526E2C52D2AD00D80A8C /* Frameworks */,
@@ -199,9 +208,9 @@
 			);
 			dependencies = (
 			);
-			name = Hike;
-			productName = Hike;
-			productReference = DB1452712C52D2AD00D80A8C /* Hike.app */;
+			name = GetFly;
+			productName = GetFly;
+			productReference = DB1452712C52D2AD00D80A8C /* GetFly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -232,7 +241,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DB1452702C52D2AD00D80A8C /* Hike */,
+				DB1452702C52D2AD00D80A8C /* GetFly */,
 			);
 		};
 /* End PBXProject section */
@@ -254,6 +263,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC0010212C70000200A10001 /* CoordinateConverter.swift in Sources */,
+				DC0010232C70000200A10001 /* OpenStreetMapView.swift in Sources */,
+				DC0010252C70000200A10001 /* LocationManager.swift in Sources */,
 				DC0010012C70000100A10001 /* Coordinate3D.swift in Sources */,
 				DC0010032C70000100A10001 /* Waypoint.swift in Sources */,
 				DC0010052C70000100A10001 /* DroneCommand.swift in Sources */,
@@ -270,7 +282,7 @@
 				DB14527E2C52D2AE00D80A8C /* Persistence.swift in Sources */,
 				DB1452812C52D2AE00D80A8C /* Hike.xcdatamodeld in Sources */,
 				DB28B9AD2C61072600AAE8B4 /* CustomListRowView.swift in Sources */,
-				DB14528E2C52D65800D80A8C /* HikeApp.swift in Sources */,
+				DB14528E2C52D65800D80A8C /* GetFlyApp.swift in Sources */,
 				DB14528F2C52D65800D80A8C /* ContentView.swift in Sources */,
 				DB1452982C52EB7400D80A8C /* CustomButton.swift in Sources */,
 				DB1452912C52D67100D80A8C /* CardView.swift in Sources */,
@@ -417,9 +429,9 @@
 				DEVELOPMENT_TEAM = 49QJL3FTQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsLocalNetworking = YES;
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app connects to your ESP32 quadcopter controller over the local Wi-Fi network.";
+				INFOPLIST_KEY_CFBundleDisplayName = GetFly;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "GetFly connects to your ESP32 quadcopter controller over the local Wi-Fi network.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GetFly uses location to set the OpenStreetMap home point for drone navigation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -431,7 +443,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = codebuzz.Hike;
+				PRODUCT_BUNDLE_IDENTIFIER = codebuzz.GetFly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -452,9 +464,9 @@
 				DEVELOPMENT_TEAM = 49QJL3FTQK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
-				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsLocalNetworking = YES;
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app connects to your ESP32 quadcopter controller over the local Wi-Fi network.";
+				INFOPLIST_KEY_CFBundleDisplayName = GetFly;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "GetFly connects to your ESP32 quadcopter controller over the local Wi-Fi network.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GetFly uses location to set the OpenStreetMap home point for drone navigation.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -466,7 +478,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = codebuzz.Hike;
+				PRODUCT_BUNDLE_IDENTIFIER = codebuzz.GetFly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -486,7 +498,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DB1452842C52D2AE00D80A8C /* Build configuration list for PBXNativeTarget "Hike" */ = {
+		DB1452842C52D2AE00D80A8C /* Build configuration list for PBXNativeTarget "GetFly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DB1452852C52D2AE00D80A8C /* Debug */,

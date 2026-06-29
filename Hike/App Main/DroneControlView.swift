@@ -15,20 +15,24 @@ struct DroneControlView: View {
                 VStack(spacing: 16) {
                     statusCard
                     FlightMapView(
+                        homeCoordinate: viewModel.settings.homeCoordinate,
                         dronePosition: viewModel.status.position,
                         targetPosition: viewModel.targetCoordinate,
                         waypoints: viewModel.waypoints
                     ) { coordinate in
                         viewModel.targetCoordinate = coordinate
                     }
-                    CoordinateInputView(coordinate: $viewModel.targetCoordinate)
+                    CoordinateInputView(
+                        coordinate: $viewModel.targetCoordinate,
+                        homeCoordinate: viewModel.settings.homeCoordinate
+                    )
                     flightControls
                     WaypointMissionView(viewModel: viewModel)
                 }
                 .padding()
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("Quadcopter Control")
+            .navigationTitle("GetFly")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -89,6 +93,12 @@ struct DroneControlView: View {
             Text("Position: \(viewModel.status.position.formatted)")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+
+            if let connectionError = viewModel.connectionError {
+                Text(connectionError)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
         }
         .padding()
         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 12))
@@ -143,15 +153,27 @@ struct DroneControlView: View {
         .background(.ultraThinMaterial, in: Capsule())
     }
 
+    @ViewBuilder
     private func controlButton(_ action: DroneAction, prominent: Bool) -> some View {
-        Button {
-            Task { await viewModel.sendAction(action) }
-        } label: {
-            Label(action.displayName, systemImage: action.iconName)
-                .frame(maxWidth: .infinity)
+        if prominent {
+            Button {
+                Task { await viewModel.sendAction(action) }
+            } label: {
+                Label(action.displayName, systemImage: action.iconName)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(viewModel.isBusy || !viewModel.isConnected)
+        } else {
+            Button {
+                Task { await viewModel.sendAction(action) }
+            } label: {
+                Label(action.displayName, systemImage: action.iconName)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .disabled(viewModel.isBusy || !viewModel.isConnected)
         }
-        .buttonStyle(prominent ? .borderedProminent : .bordered)
-        .disabled(viewModel.isBusy || !viewModel.isConnected)
     }
 
     private func statusPill(title: String, color: Color) -> some View {
