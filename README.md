@@ -1,4 +1,4 @@
-# ESP32 Quadcopter iOS Controller
+# GetFly
 
 SwiftUI iOS app to control an autonomous quadcopter over Wi‑Fi using an ESP32 microcontroller.
 
@@ -90,7 +90,7 @@ Origin (0, 0, 0) is the home/takeoff point.
 ## Project structure
 
 ```
-Hike/
+GetFly/
   Model/          - Coordinate, waypoint, command, status types
   Services/       - ESP32 HTTP client and connection settings
   ViewModel/      - DroneViewModel

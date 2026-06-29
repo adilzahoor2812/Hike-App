@@ -17,7 +17,7 @@
 #include <WebServer.h>
 #include <ArduinoJson.h>
 
-const char* AP_SSID = "Quadcopter-ESP32";
+const char* AP_SSID = "GetFly-ESP32";
 const char* AP_PASSWORD = "12345678";
 
 WebServer server(80);

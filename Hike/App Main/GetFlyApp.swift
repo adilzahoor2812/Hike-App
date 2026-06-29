@@ -1,12 +1,12 @@
 //
-//  HikeApp.swift
-//  Hike
+//  GetFlyApp.swift
+//  GetFly
 //
 
 import SwiftUI
 
 @main
-struct HikeApp: App {
+struct GetFlyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

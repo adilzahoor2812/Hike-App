@@ -32,7 +32,7 @@ struct DroneControlView: View {
                 .padding()
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("Quadcopter Control")
+            .navigationTitle("GetFly")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
