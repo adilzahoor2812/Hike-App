@@ -10,6 +10,7 @@ final class DroneViewModel: ObservableObject {
     @Published var status: DroneStatus = .disconnected
     @Published var isConnected = false
     @Published var isBusy = false
+    @Published var connectionError: String?
     @Published var lastError: String?
     @Published var lastSuccessMessage: String?
 
@@ -39,7 +40,7 @@ final class DroneViewModel: ObservableObject {
     func refreshStatus() async {
         guard let baseURL = settings.baseURL else {
             isConnected = false
-            lastError = ESP32ClientError.invalidURL.localizedDescription
+            connectionError = ESP32ClientError.invalidURL.localizedDescription
             return
         }
 
@@ -47,11 +48,11 @@ final class DroneViewModel: ObservableObject {
             let newStatus = try await client.fetchStatus(baseURL: baseURL)
             status = newStatus
             isConnected = true
-            lastError = nil
+            connectionError = nil
         } catch {
             isConnected = false
             status = .disconnected
-            lastError = error.localizedDescription
+            connectionError = error.localizedDescription
         }
     }
 

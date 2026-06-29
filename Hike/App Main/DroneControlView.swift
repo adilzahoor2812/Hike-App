@@ -51,11 +51,7 @@ struct DroneControlView: View {
                 viewModel.stopPolling()
             }
             .overlay(alignment: .bottom) {
-                if let message = viewModel.lastSuccessMessage {
-                    toast(message, color: .green)
-                } else if let error = viewModel.lastError {
-                    toast(error, color: .red)
-                }
+                toastOverlay
             }
         }
     }
@@ -89,9 +85,26 @@ struct DroneControlView: View {
             Text("Position: \(viewModel.status.position.formatted)")
                 .font(.caption)
                 .foregroundStyle(.secondary)
+
+            if let connectionError = viewModel.connectionError {
+                Text(connectionError)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+            }
         }
         .padding()
         .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 12))
+    }
+
+    @ViewBuilder
+    private var toastOverlay: some View {
+        if let message = viewModel.lastSuccessMessage {
+            toast(message, color: .green)
+                .onAppear { scheduleToastClear() }
+        } else if let error = viewModel.lastError {
+            toast(error, color: .red)
+                .onAppear { scheduleToastClear() }
+        }
     }
 
     private var flightControls: some View {
@@ -143,15 +156,35 @@ struct DroneControlView: View {
         .background(.ultraThinMaterial, in: Capsule())
     }
 
+    @ViewBuilder
     private func controlButton(_ action: DroneAction, prominent: Bool) -> some View {
-        Button {
-            Task { await viewModel.sendAction(action) }
-        } label: {
-            Label(action.displayName, systemImage: action.iconName)
-                .frame(maxWidth: .infinity)
+        if prominent {
+            Button {
+                Task { await viewModel.sendAction(action) }
+            } label: {
+                Label(action.displayName, systemImage: action.iconName)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(viewModel.isBusy || !viewModel.isConnected)
+        } else {
+            Button {
+                Task { await viewModel.sendAction(action) }
+            } label: {
+                Label(action.displayName, systemImage: action.iconName)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.bordered)
+            .disabled(viewModel.isBusy || !viewModel.isConnected)
         }
-        .buttonStyle(prominent ? .borderedProminent : .bordered)
-        .disabled(viewModel.isBusy || !viewModel.isConnected)
+    }
+
+    private func scheduleToastClear() {
+        Task {
+            try? await Task.sleep(for: .seconds(3))
+            viewModel.lastSuccessMessage = nil
+            viewModel.lastError = nil
+        }
     }
 
     private func statusPill(title: String, color: Color) -> some View {
