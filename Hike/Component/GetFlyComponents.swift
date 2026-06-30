@@ -187,6 +187,31 @@ struct GetFlyToast: View {
     }
 }
 
+struct GetFlyMissionProgressBar: View {
+    let completed: Int
+    let total: Int
+    let label: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(label)
+                    .font(.subheadline.weight(.semibold))
+                Spacer()
+                if total > 0 {
+                    Text("\(min(completed, total))/\(total)")
+                        .font(.caption.weight(.medium))
+                        .foregroundStyle(.secondary)
+                }
+            }
+            ProgressView(value: total > 0 ? Double(min(completed, total)) / Double(total) : 0)
+                .tint(GetFlyTheme.accent)
+        }
+        .padding(14)
+        .background(GetFlyTheme.accent.opacity(0.08), in: RoundedRectangle(cornerRadius: 14))
+    }
+}
+
 struct GetFlyConnectionBanner: View {
     let isConnected: Bool
     let error: String?

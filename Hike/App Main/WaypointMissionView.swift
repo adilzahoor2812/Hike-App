@@ -30,14 +30,14 @@ struct WaypointMissionView: View {
                     ContentUnavailableView {
                         Label("No Waypoints Yet", systemImage: "mappin.and.ellipse")
                     } description: {
-                        Text("Tap the map on the Navigate tab or add your current target to build a mission route.")
+                        Text("Tap the map or add your current target to build a mission route.")
                     } actions: {
                         Button("Add Current Target") {
                             viewModel.addWaypoint()
                         }
                         .buttonStyle(.bordered)
                     }
-                    .frame(minHeight: 180)
+                    .frame(minHeight: 160)
                 } else {
                     VStack(spacing: 10) {
                         ForEach(Array(viewModel.waypoints.enumerated()), id: \.element.id) { index, waypoint in
@@ -46,10 +46,10 @@ struct WaypointMissionView: View {
                     }
 
                     GetFlyActionButton(
-                        title: "Run Mission",
-                        icon: "play.fill",
+                        title: viewModel.isNavigating ? "Mission Running…" : "Run Mission",
+                        icon: viewModel.isNavigating ? "airplane" : "play.fill",
                         style: .primary,
-                        isDisabled: viewModel.isBusy || !viewModel.isConnected
+                        isDisabled: viewModel.isBusy || !viewModel.isConnected || viewModel.isNavigating
                     ) {
                         Task { await viewModel.sendMission() }
                     }
@@ -59,16 +59,38 @@ struct WaypointMissionView: View {
     }
 
     private func waypointRow(index: Int, waypoint: Waypoint) -> some View {
-        HStack(spacing: 14) {
-            Text("\(index + 1)")
-                .font(.headline.bold())
-                .foregroundStyle(.white)
-                .frame(width: 34, height: 34)
-                .background(GetFlyTheme.accent.gradient, in: Circle())
+        let isActive = viewModel.activeWaypointIndex == index
+        let isCompleted = (viewModel.activeWaypointIndex ?? -1) > index
+
+        return HStack(spacing: 14) {
+            ZStack {
+                Circle()
+                    .fill(isActive ? GetFlyTheme.warning.gradient : GetFlyTheme.accent.gradient)
+                    .frame(width: 36, height: 36)
+                if isCompleted {
+                    Image(systemName: "checkmark")
+                        .font(.caption.bold())
+                        .foregroundStyle(.white)
+                } else {
+                    Text("\(index + 1)")
+                        .font(.headline.bold())
+                        .foregroundStyle(.white)
+                }
+            }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text("Waypoint \(index + 1)")
-                    .font(.subheadline.weight(.semibold))
+                HStack {
+                    Text("Waypoint \(index + 1)")
+                        .font(.subheadline.weight(.semibold))
+                    if isActive {
+                        Text("ACTIVE")
+                            .font(.caption2.bold())
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(GetFlyTheme.warning.opacity(0.2), in: Capsule())
+                            .foregroundStyle(GetFlyTheme.warning)
+                    }
+                }
                 Text(waypoint.coordinate.formatted)
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(.secondary)
@@ -85,9 +107,17 @@ struct WaypointMissionView: View {
                     .foregroundStyle(GetFlyTheme.danger)
             }
             .buttonStyle(.plain)
+            .disabled(viewModel.isNavigating)
         }
         .padding(12)
-        .background(Color(.tertiarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 14))
+        .background(
+            isActive ? GetFlyTheme.warning.opacity(0.08) : Color(.tertiarySystemGroupedBackground),
+            in: RoundedRectangle(cornerRadius: 14)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(isActive ? GetFlyTheme.warning.opacity(0.35) : .clear, lineWidth: 1)
+        )
     }
 }
 

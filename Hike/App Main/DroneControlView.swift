@@ -54,6 +54,9 @@ struct DroneControlView: View {
         }
         .onAppear { viewModel.startPolling() }
         .onDisappear { viewModel.stopPolling() }
+        .onChange(of: viewModel.isNavigating) { _, navigating in
+            if navigating { selectedTab = .mission }
+        }
     }
 
     // MARK: - Dashboard
@@ -67,8 +70,15 @@ struct DroneControlView: View {
                         isConnected: viewModel.isConnected,
                         error: viewModel.connectionError
                     )
+                    if viewModel.isFlying {
+                        GetFlyMissionProgressBar(
+                            completed: missionProgressCompleted,
+                            total: max(viewModel.waypoints.count, 1),
+                            label: viewModel.navigationLabel
+                        )
+                    }
                     telemetryGrid
-                    mapSection(compact: true)
+                    mapSection(layout: .preview)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 24)
@@ -86,10 +96,10 @@ struct DroneControlView: View {
                 VStack(spacing: 20) {
                     GetFlySectionHeader(
                         "Flight Path",
-                        subtitle: "Tap the map to set your target location",
+                        subtitle: "Wide map view — tap anywhere to set target",
                         icon: "location.viewfinder"
                     )
-                    mapSection(compact: false)
+                    mapSection(layout: .expanded)
                     CoordinateInputView(
                         coordinate: $viewModel.targetCoordinate,
                         homeCoordinate: viewModel.settings.homeCoordinate
@@ -118,10 +128,18 @@ struct DroneControlView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     GetFlySectionHeader(
-                        "Waypoint Mission",
-                        subtitle: "Build a multi-point autonomous route",
+                        "Live Mission Map",
+                        subtitle: "Watch the drone move to each waypoint",
                         icon: "arrow.triangle.swap"
                     )
+                    mapSection(layout: .expanded)
+                    if viewModel.isNavigating && !viewModel.waypoints.isEmpty {
+                        GetFlyMissionProgressBar(
+                            completed: missionProgressCompleted,
+                            total: viewModel.waypoints.count,
+                            label: viewModel.navigationLabel
+                        )
+                    }
                     WaypointMissionView(viewModel: viewModel)
                 }
                 .padding(.horizontal, 16)
@@ -143,6 +161,7 @@ struct DroneControlView: View {
                         subtitle: "Arm motors before takeoff",
                         icon: "airplane.circle.fill"
                     )
+                    mapSection(layout: .standard)
                     flightControlsGrid
                     GetFlyActionButton(
                         title: "Emergency Stop",
@@ -161,7 +180,43 @@ struct DroneControlView: View {
         }
     }
 
-    // MARK: - Shared Components
+    // MARK: - Shared
+
+    private var missionProgressCompleted: Int {
+        if let active = viewModel.activeWaypointIndex {
+            return active
+        }
+        return viewModel.isNavigating ? 0 : viewModel.waypoints.count
+    }
+
+    private func mapSection(layout: FlightMapLayout) -> some View {
+        GetFlyCard {
+            VStack(alignment: .leading, spacing: 12) {
+                if layout == .preview {
+                    GetFlySectionHeader(
+                        "Live Map",
+                        subtitle: "Open full map in Navigate tab",
+                        icon: "map"
+                    )
+                }
+                FlightMapView(
+                    homeCoordinate: viewModel.settings.homeCoordinate,
+                    dronePosition: viewModel.displayPosition,
+                    targetPosition: viewModel.targetCoordinate,
+                    waypoints: viewModel.waypoints,
+                    flightTrail: viewModel.flightTrail,
+                    isFlying: viewModel.isFlying,
+                    followDrone: viewModel.isFlying && layout != .preview,
+                    activeWaypointIndex: viewModel.activeWaypointIndex,
+                    navigationLabel: viewModel.navigationLabel,
+                    layout: layout
+                ) { coordinate in
+                    viewModel.targetCoordinate = coordinate
+                    selectedTab = .navigate
+                }
+            }
+        }
+    }
 
     private var heroHeader: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -175,26 +230,25 @@ struct DroneControlView: View {
                 }
                 Spacer()
                 if viewModel.isBusy {
-                    ProgressView()
-                        .tint(.white)
+                    ProgressView().tint(.white)
                 } else {
                     Image(systemName: "airplane")
                         .font(.title)
-                        .symbolEffect(.pulse, isActive: viewModel.status.flying)
+                        .symbolEffect(.pulse, isActive: viewModel.isFlying)
                 }
             }
 
             HStack(spacing: 8) {
-                statusChip(
-                    viewModel.status.mode.displayName,
-                    icon: "dot.radiowaves.right",
-                    active: viewModel.status.flying
-                )
-                statusChip(
-                    viewModel.status.armed ? "Armed" : "Disarmed",
-                    icon: "power",
-                    active: viewModel.status.armed
-                )
+                statusChip(viewModel.status.mode.displayName, icon: "dot.radiowaves.right", active: viewModel.status.flying)
+                statusChip(viewModel.status.armed ? "Armed" : "Disarmed", icon: "power", active: viewModel.status.armed)
+            }
+
+            if viewModel.isFlying {
+                Label(viewModel.navigationLabel, systemImage: "location.fill")
+                    .font(.caption.weight(.semibold))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(.white.opacity(0.18), in: Capsule())
             }
         }
         .foregroundStyle(.white)
@@ -207,7 +261,7 @@ struct DroneControlView: View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
             GetFlyMetricTile(
                 title: "Altitude",
-                value: String(format: "%.1f m", viewModel.status.position.z),
+                value: String(format: "%.1f m", viewModel.displayPosition.z),
                 icon: "arrow.up.and.down",
                 tint: GetFlyTheme.accent
             )
@@ -219,40 +273,16 @@ struct DroneControlView: View {
             )
             GetFlyMetricTile(
                 title: "Position X",
-                value: String(format: "%.1f m", viewModel.status.position.x),
+                value: String(format: "%.1f m", viewModel.displayPosition.x),
                 icon: "arrow.left.and.right",
                 tint: .purple
             )
             GetFlyMetricTile(
                 title: "Position Y",
-                value: String(format: "%.1f m", viewModel.status.position.y),
+                value: String(format: "%.1f m", viewModel.displayPosition.y),
                 icon: "arrow.up.and.down.circle",
                 tint: .teal
             )
-        }
-    }
-
-    private func mapSection(compact: Bool) -> some View {
-        GetFlyCard {
-            VStack(alignment: .leading, spacing: 12) {
-                if compact {
-                    GetFlySectionHeader(
-                        "Live Map",
-                        subtitle: "OpenStreetMap view",
-                        icon: "map"
-                    )
-                }
-                FlightMapView(
-                    homeCoordinate: viewModel.settings.homeCoordinate,
-                    dronePosition: viewModel.status.position,
-                    targetPosition: viewModel.targetCoordinate,
-                    waypoints: viewModel.waypoints
-                ) { coordinate in
-                    viewModel.targetCoordinate = coordinate
-                    selectedTab = .navigate
-                }
-                .frame(maxHeight: compact ? 260 : nil)
-            }
         }
     }
 
