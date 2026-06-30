@@ -13,7 +13,8 @@ struct SettingsView: View {
                                                "AppIcon-Mushroom",
                                                "AppIcon-Camera",
                                                "AppIcon-Backpack",
-                                               "AppIcon-Campfire"]
+                                               "AppIcon-Campfire",
+                                               "AppIcon-Cache"]
     var body: some View {
         List{
             Section{
